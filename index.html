@@ -37,22 +37,22 @@ body{
   background:#FFF6E8;
   border:1px solid var(--orange);
   border-left:5px solid var(--orange);
-  padding:11px 16px;margin-bottom:14px;
+  padding:11px 16px;margin:0 0 20px;
   font-size:13.5px;line-height:1.55;color:var(--ink-2);
 }
 .notice b{color:var(--ink)}
 
-.tools{margin-bottom:22px}
+.tools{margin-top:28px}
 button{
   font-family:inherit;font-size:14px;font-weight:600;
   background:var(--blau);color:#fff;border:1px solid var(--blau);
-  padding:10px 20px;cursor:pointer;
+  padding:11px 22px;cursor:pointer;
 }
 button:hover{background:#003A78;border-color:#003A78}
 button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
 
 /* ---------- Kopf ---------- */
-.head{background:#fff;border:1px solid var(--line);margin-bottom:24px}
+.head{background:#fff;border:1px solid var(--line);margin-bottom:20px}
 .head-bar{
   background:var(--orange);color:#fff;
   padding:7px 20px;font-size:13px;font-weight:600;letter-spacing:.02em;
@@ -88,8 +88,30 @@ blockquote{
   padding:12px 18px;margin:0 0 12px;max-width:66ch;
 }
 blockquote p{margin:0;font-style:italic}
-.ref{font-size:13.5px;color:var(--ink-2);margin:0 0 12px}
-.ref a{color:var(--blau)}
+
+/* ---------- Aufklappbare Hilfestellung ---------- */
+details.help{
+  border:1px solid var(--line);background:#FAFAFA;
+  max-width:66ch;margin:0 0 14px;
+}
+details.help summary{
+  list-style:none;cursor:pointer;
+  padding:9px 14px;font-size:14px;font-weight:600;color:var(--blau);
+  display:flex;align-items:center;gap:10px;
+}
+details.help summary::-webkit-details-marker{display:none}
+details.help summary::before{
+  content:"+";
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;flex:0 0 20px;
+  border:1px solid var(--blau);color:var(--blau);
+  font-size:15px;font-weight:700;line-height:1;
+}
+details.help[open] summary::before{content:"−"}
+details.help summary:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
+details.help .help-body{padding:0 14px 12px 44px;font-size:14px;color:var(--ink-2)}
+details.help .help-body p{margin:0}
+details.help a{color:var(--blau)}
 
 /* ---------- Typenschilder ---------- */
 .plates{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 14px}
@@ -97,7 +119,7 @@ blockquote p{margin:0;font-style:italic}
 .plate .label{display:block;font-size:12px;color:var(--ink-2);margin-bottom:4px}
 .plate .code{display:block;font-size:20px;font-weight:700;letter-spacing:.06em}
 
-.plate-full{background:#F6F6F6;border:1px solid var(--ink-3);padding:0;max-width:340px;margin:0 0 14px}
+.plate-full{background:#F6F6F6;border:1px solid var(--ink-3);padding:0;max-width:390px;margin:0 0 14px}
 .plate-full .label{
   display:block;background:var(--blau-2);color:#fff;
   font-size:12.5px;font-weight:600;padding:6px 16px;
@@ -105,10 +127,11 @@ blockquote p{margin:0;font-style:italic}
 .plate-full dl{margin:0;padding:12px 16px 14px;display:grid;grid-template-columns:auto 1fr;gap:5px 22px}
 .plate-full dt{font-size:14px;color:var(--ink-2)}
 .plate-full dd{margin:0;font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.plate-full dd.stack{line-height:1.45}
 
 /* ---------- Tabelle ---------- */
 .table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:710px;font-size:13.5px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
 th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
 thead th{
   background:var(--blau);color:#fff;border-color:var(--blau);
@@ -118,9 +141,9 @@ tbody tr:nth-child(odd) td.pos,
 tbody tr:nth-child(odd) td.dev,
 tbody tr:nth-child(odd) td.code{background:var(--blau-hell)}
 td.pos{width:2.6em;text-align:center;color:var(--ink-2)}
-td.dev{width:11.5em}
+td.dev{width:12em}
 td.code{width:7em;font-weight:700;letter-spacing:.04em;white-space:nowrap}
-td.entry{background:#fff;min-width:9.5em}
+td.entry{background:#fff;min-width:11em}
 
 /* ---------- Antwortfelder ---------- */
 .answer{
@@ -156,6 +179,8 @@ td.entry{background:#fff;min-width:9.5em}
   table{min-width:0;font-size:9.2pt}
   h1{font-size:20pt}
   .head-body{padding:16px 16px 14px}
+  details.help{border-color:#8A8A8A}
+  details.help .help-body{display:block !important}
 }
 
 @media(max-width:620px){
@@ -168,15 +193,6 @@ td.entry{background:#fff;min-width:9.5em}
 <body>
 
 <div class="sheet">
-
-  <div class="notice" role="note">
-    <b>Deine Eingaben werden nicht gespeichert.</b>
-    Alles, was du hier hineinschreibst, liegt nur im Browserfenster. Sobald du die Seite neu lädst oder schließt, ist es weg. Sichere deine Antworten über „Drucken oder als PDF sichern“.
-  </div>
-
-  <div class="tools">
-    <button type="button" id="print">Drucken oder als PDF sichern</button>
-  </div>
 
   <div class="head">
     <div class="head-bar">
@@ -193,10 +209,15 @@ td.entry{background:#fff;min-width:9.5em}
     </div>
   </div>
 
+  <div class="notice" role="note">
+    <b>Deine Eingaben werden nicht gespeichert.</b>
+    Alles, was du hier hineinschreibst, liegt nur im Browserfenster. Sobald du die Seite neu lädst oder schließt, ist es weg. Sichere deine Antworten über die Schaltfläche am Ende des Blattes.
+  </div>
+
   <section class="task">
     <div class="task-bar"><span class="num">1</span><h2>Lies die Kennziffern aus</h2></div>
     <div class="task-body">
-      <p>Trage für jedes Gerät ein, wogegen die erste und wogegen die zweite Kennziffer schützt. Notiere dazu einen möglichen Einsatzort oder Einsatzzweck.</p>
+      <p>Trage für jedes Gerät ein, wogegen die erste und wogegen die zweite Kennziffer schützt.</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -206,22 +227,21 @@ td.entry{background:#fff;min-width:9.5em}
               <th>Typenschild</th>
               <th>Erste Kennziffer: Schutz gegen</th>
               <th>Zweite Kennziffer: Schutz gegen</th>
-              <th>Möglicher Einsatz</th>
             </tr>
           </thead>
           <tbody>
             <tr><td class="pos">1</td><td class="dev">LED-Moving-Head</td><td class="code">IP 20</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
             <tr><td class="pos">2</td><td class="dev">CEE-Verlängerungsleitung 16 A</td><td class="code">IP 44</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
             <tr><td class="pos">3</td><td class="dev">Stromverteiler</td><td class="code">IP 54</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
             <tr><td class="pos">4</td><td class="dev">LED-Fluter</td><td class="code">IP 45</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
             <tr><td class="pos">5</td><td class="dev">Fresnel-Scheinwerfer</td><td class="code">IP 23</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
             <tr><td class="pos">6</td><td class="dev">LED-Bar</td><td class="code">IP 65 / IP 68</td>
-              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
+              <td class="entry" contenteditable="true"></td><td class="entry" contenteditable="true"></td></tr>
           </tbody>
         </table>
       </div>
@@ -254,21 +274,23 @@ td.entry{background:#fff;min-width:9.5em}
           <dt>T<sub>o</sub></dt><dd>160 °C</dd>
           <dt>T<sub>a</sub></dt><dd>40 °C</dd>
           <dt>Montage</dt><dd>45° / 90°</dd>
+          <dt>Mindestabstände</dt>
+          <dd class="stack">Personen 3,00 m<br>brennbare Materialien 1,00 m<br>angestrahlte Flächen 1,00 m</dd>
         </dl>
       </div>
 
       <div class="speech"><p>„Da stehen ja zwei Temperaturen drauf. Ist das nicht dasselbe? Und was sollen die Gradzahlen bei der Montage?“</p></div>
 
-      <p>Lies in der DGUV Information 215-314 zuerst den Abschnitt 3.2.2. Sieh dir anschließend die Tabelle 1 an.</p>
+      <p>Lies in der DGUV Information 215-314 zuerst den Abschnitt 3.2.2 und sieh dir anschließend die Tabelle 1 an. Für die letzte Frage brauchst du zusätzlich den Abschnitt 6.5.</p>
 
       <p class="sub">Schreibe auf, wofür die beiden Kurzzeichen T<sub>o</sub> und T<sub>a</sub> stehen.</p>
       <div class="answer" contenteditable="true" data-ph="To und Ta"></div>
 
-      <p class="sub">Schreibe auf, wofür die beiden Gradzahlen bei der Montage stehen.</p>
+      <p class="sub">Schreibe auf, wofür die beiden Gradzahlen bei der Montage stehen. Die DGUV Information nennt dafür nur einen Begriff, erklärt ihn aber nicht. Recherchiere den Rest im Internet.</p>
       <div class="answer" contenteditable="true" data-ph="45° und 90°"></div>
 
-      <p class="sub">Erkläre für jeden dieser Werte, welche Folge er für die Arbeit hat.</p>
-      <div class="answer tall" contenteditable="true" data-ph="Folgen für die Arbeit"></div>
+      <p class="sub">Für dasselbe Gerät sind drei verschiedene Mindestabstände angegeben. Erkläre, warum das so ist.</p>
+      <div class="answer" contenteditable="true" data-ph="Warum drei verschiedene Abstände"></div>
     </div>
   </section>
 
@@ -310,10 +332,21 @@ td.entry{background:#fff;min-width:9.5em}
       <p>Er fragt dich:</p>
       <div class="speech"><p>„Wenn das stimmt, warum steht auf der LED-Bar dann IP 65 und IP 68? Die 8 ist doch höher als die 5. Warum schreibt der Hersteller die 5 überhaupt noch dazu?“</p></div>
       <p>Sieh dir die Beschreibungen der zweiten Kennziffer 5, 7 und 8 genau an und formuliere eine Antwort auf die Frage des Kollegen. Für die Begründung hilft dir eine Recherche im Internet weiter.</p>
-      <p class="ref">Einstiegspunkt: <a href="https://www.icotek.com/de/ip-schutzarten" target="_blank" rel="noopener">icotek.com/de/ip-schutzarten</a></p>
+
+      <details class="help">
+        <summary>Hilfestellung</summary>
+        <div class="help-body">
+          <p><a href="https://www.icotek.com/de/ip-schutzarten" target="_blank" rel="noopener">icotek.com/de/ip-schutzarten</a></p>
+        </div>
+      </details>
+
       <div class="answer tall" contenteditable="true" data-ph="Hier schreiben"></div>
     </div>
   </section>
+
+  <div class="tools">
+    <button type="button" id="print">Drucken oder als PDF sichern</button>
+  </div>
 
 </div>
 
